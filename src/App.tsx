@@ -86,9 +86,6 @@ function App() {
         onUpdateTask={handleUpdateTask}
         onDeleteTask={handleDeleteTask}
         onAddTask={handleAddTask}
-        onUpdateTimeBlock={handleUpdateTimeBlock}
-        onDeleteTimeBlock={handleDeleteTimeBlock}
-        onAddTimeBlock={handleAddTimeBlock}
         timeBlocks={timeBlocks}
       />
       <LowPolyCity timeBlocks={timeBlocks} />

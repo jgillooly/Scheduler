@@ -16,6 +16,10 @@ import {
   ListItemSecondaryAction,
   Checkbox,
   Divider,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from '@mui/material';
 import { Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
 
@@ -216,20 +220,10 @@ const TaskTracker: React.FC<TaskTrackerProps> = ({ timeBlocks }) => {
               },
             }}
           />
-          <TextField
-            margin="dense"
-            select
-            label="Category"
+          <FormControl
             fullWidth
+            margin="dense"
             variant="outlined"
-            value={newTask.category}
-            onChange={(e) => setNewTask({ ...newTask, category: e.target.value })}
-            SelectProps={{
-              native: true,
-              inputProps: {
-                'aria-label': 'Select task category'
-              }
-            }}
             sx={{
               mt: 2,
               '& .MuiOutlinedInput-root': {
@@ -247,15 +241,43 @@ const TaskTracker: React.FC<TaskTrackerProps> = ({ timeBlocks }) => {
               '& .MuiInputLabel-root': {
                 color: 'rgba(255, 255, 255, 0.7)',
               },
+              '& .MuiSelect-icon': {
+                color: 'rgba(255, 255, 255, 0.7)',
+              },
             }}
           >
-            <option value="">Select a category</option>
-            {timeBlocks.map((block) => (
-              <option key={block.category} value={block.category}>
-                {block.category}
-              </option>
-            ))}
-          </TextField>
+            <InputLabel id="category-select-label">Category</InputLabel>
+            <Select
+              labelId="category-select-label"
+              value={newTask.category}
+              onChange={(e) => setNewTask({ ...newTask, category: e.target.value })}
+              label="Category"
+            >
+              <MenuItem value="">
+                <em>Select a category</em>
+              </MenuItem>
+              {timeBlocks.map((block) => (
+                <MenuItem 
+                  key={block.category} 
+                  value={block.category}
+                  sx={{
+                    color: 'white',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    },
+                    '&.Mui-selected': {
+                      backgroundColor: 'rgba(25, 118, 210, 0.2)',
+                      '&:hover': {
+                        backgroundColor: 'rgba(25, 118, 210, 0.3)',
+                      },
+                    },
+                  }}
+                >
+                  {block.category}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button 

@@ -23,8 +23,8 @@ const Road = ({ start, end }: { start: [number, number, number], end: [number, n
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
+          args={[new Float32Array([...start, ...end]), 3]}
           count={2}
-          array={new Float32Array([...start, ...end])}
           itemSize={3}
         />
       </bufferGeometry>
@@ -73,7 +73,6 @@ const Skybox = () => {
       mieCoefficient={0.005}
       rayleigh={8}
       turbidity={10}
-      exposure={0.5}
     />
   );
 };

@@ -36,7 +36,6 @@ const LowPolyCity: React.FC<LowPolyCityProps> = ({ timeBlocks }) => {
       1000
     );
     cameraRef.current = camera;
-    // Position camera to look at the center of the circle, with increased offset for right-aligned viewport
     camera.position.set(25, 15, 15);
     camera.lookAt(0, 0, 0);
 
@@ -52,12 +51,10 @@ const LowPolyCity: React.FC<LowPolyCityProps> = ({ timeBlocks }) => {
     controlsRef.current = controls;
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
-    controls.minDistance = 15; // Increased minimum distance
-    controls.maxDistance = 40; // Increased maximum distance
-    controls.maxPolarAngle = Math.PI / 2; // Prevent going below ground level
-    // Set the target to the center of the circle
+    controls.minDistance = 15;
+    controls.maxDistance = 40;
+    controls.maxPolarAngle = Math.PI / 2;
     controls.target.set(0, 0, 0);
-    // Update controls to apply the target
     controls.update();
 
     // Lighting
@@ -105,7 +102,7 @@ const LowPolyCity: React.FC<LowPolyCityProps> = ({ timeBlocks }) => {
     const createBuildings = () => {
       buildings.clear();
       
-      const radius = 10; // Radius of the circle
+      const radius = 10;
       const numBuildings = timeBlocks.length;
       
       timeBlocks.forEach((block, index) => {
@@ -123,13 +120,11 @@ const LowPolyCity: React.FC<LowPolyCityProps> = ({ timeBlocks }) => {
         
         const building = new THREE.Mesh(geometry, material);
         
-        // Calculate position in circle
         const angle = (index / numBuildings) * Math.PI * 2;
         const x = Math.cos(angle) * radius;
         const z = Math.sin(angle) * radius;
         
         building.position.set(x, height / 2, z);
-        // Rotate building to face center
         building.rotation.y = angle + Math.PI / 2;
         
         buildings.add(building);
@@ -171,17 +166,15 @@ const LowPolyCity: React.FC<LowPolyCityProps> = ({ timeBlocks }) => {
     if (buildingsRef.current) {
       buildingsRef.current.clear();
       
-      const radius = 10; // Radius of the circle
+      const radius = 10;
       const numBuildings = timeBlocks.length;
       
-      // Find the total time range
       const totalTimeRange = timeBlocks.reduce((max, block) => 
         Math.max(max, block.end - block.start), 0);
       
       timeBlocks.forEach((block, index) => {
-        // Calculate height based on time range relative to total range
         const timeRange = block.end - block.start;
-        const height = (timeRange / totalTimeRange) * 20; // Scale height based on time proportion
+        const height = (timeRange / totalTimeRange) * 20;
         const width = 1;
         const depth = 1;
         
@@ -195,13 +188,11 @@ const LowPolyCity: React.FC<LowPolyCityProps> = ({ timeBlocks }) => {
         
         const building = new THREE.Mesh(geometry, material);
         
-        // Calculate position in circle
         const angle = (index / numBuildings) * Math.PI * 2;
         const x = Math.cos(angle) * radius;
         const z = Math.sin(angle) * radius;
         
         building.position.set(x, height / 2, z);
-        // Rotate building to face center
         building.rotation.y = angle + Math.PI / 2;
         
         buildingsRef.current?.add(building);

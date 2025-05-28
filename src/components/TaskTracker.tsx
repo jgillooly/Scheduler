@@ -35,9 +35,6 @@ interface TaskTrackerProps {
   onUpdateTask: (id: string, updates: Partial<Task>) => void;
   onDeleteTask: (id: string) => void;
   onAddTask: (task: Task) => void;
-  onUpdateTimeBlock: (id: string, updates: { start: number; end: number }) => void;
-  onDeleteTimeBlock: (id: string) => void;
-  onAddTimeBlock: (taskId: string, start: number, end: number) => void;
   timeBlocks: Array<{
     start: number;
     end: number;
@@ -51,9 +48,6 @@ const TaskTracker: React.FC<TaskTrackerProps> = ({
   onUpdateTask,
   onDeleteTask,
   onAddTask,
-  onUpdateTimeBlock,
-  onDeleteTimeBlock,
-  onAddTimeBlock,
   timeBlocks,
 }) => {
   const [newTaskName, setNewTaskName] = useState('');
@@ -187,6 +181,7 @@ const TaskTracker: React.FC<TaskTrackerProps> = ({
     >
       <Box
         ref={headerRef}
+        onMouseDown={handleMouseDown}
         sx={{
           padding: '12px',
           backgroundColor: 'rgba(0, 0, 0, 0.2)',

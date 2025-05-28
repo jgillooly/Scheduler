@@ -174,8 +174,14 @@ const LowPolyCity: React.FC<LowPolyCityProps> = ({ timeBlocks }) => {
       const radius = 10; // Radius of the circle
       const numBuildings = timeBlocks.length;
       
+      // Find the total time range
+      const totalTimeRange = timeBlocks.reduce((max, block) => 
+        Math.max(max, block.end - block.start), 0);
+      
       timeBlocks.forEach((block, index) => {
-        const height = (block.end - block.start) * 2;
+        // Calculate height based on time range relative to total range
+        const timeRange = block.end - block.start;
+        const height = (timeRange / totalTimeRange) * 20; // Scale height based on time proportion
         const width = 1;
         const depth = 1;
         

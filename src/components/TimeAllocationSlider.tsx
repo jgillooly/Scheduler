@@ -84,6 +84,28 @@ const TimeAllocationSlider: React.FC<TimeAllocationSliderProps> = ({ timeBlocks,
       setErrorMessage('Some time blocks were removed as they were outside or too small for the new time range');
     }
 
+    // If no blocks remain, create a default block
+    if (filteredBlocks.length === 0) {
+      filteredBlocks.push({
+        start: newRange.start,
+        end: newRange.end,
+        category: 'Default',
+        color: '#2196f3'
+      });
+    } else {
+      // Ensure the first block starts at the new range start
+      filteredBlocks[0] = {
+        ...filteredBlocks[0],
+        start: newRange.start
+      };
+
+      // Ensure the last block ends at the new range end
+      filteredBlocks[filteredBlocks.length - 1] = {
+        ...filteredBlocks[filteredBlocks.length - 1],
+        end: newRange.end
+      };
+    }
+
     onTimeBlocksChange(filteredBlocks);
     setTimeRange(newRange);
     setIsSettingsDialogOpen(false);
